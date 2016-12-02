@@ -1,0 +1,14 @@
+{"namespace": "bus.avro",
+ "type": "record",
+ "name": "GPSRecord",
+ "fields": [
+   {"name": "dtservidor", "type": ["string", "null"]},
+   {"name": "dtavl", "type": ["string", "null"]},
+   {"name": "idlinha", "type": "int"},
+   {"name": "longitude", "type": "double"},
+   {"name": "latitude", "type": "double"},
+   {"name": "idavl", "type": ["int", "null"]},
+   {"name": "evento",  "type": ["int", "null"]},
+   {"name": "idponto", "type": ["int", "null"]}
+ ]
+}

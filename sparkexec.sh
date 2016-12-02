@@ -1,0 +1,1 @@
+head -1 /Users/LeonardoAlmeida/Documents/projetos/busHadoop/data/topics.txt | parallel -j4 /Users/LeonardoAlmeida/Documents/projetos/busHadoop/config.py localhost:9092 {} 2 hdfs://localhost:9000/output
