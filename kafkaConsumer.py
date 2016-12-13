@@ -9,15 +9,26 @@ import threading, logging, time
 from kafka import KafkaConsumer
 
 # Kafka topic
-topic = sys.argv[1]
+#topic = sys.argv[1]
+group = sys.argv[4]
+topic = []
+for value in sys.argv[1].split(","):
+    topic.append(value)
+
+server = []
+for value in sys.argv[3].split(","):
+    server.append(sys.argv[2]+":"+value)
+
+
 
 class Consumer(threading.Thread):
     daemon = True
 
     def run(self):
-        consumer = KafkaConsumer(bootstrap_servers='localhost:9092',
+        consumer = KafkaConsumer(bootstrap_servers=server,
+                                 group_id= group,
                                  auto_offset_reset='earliest')
-        consumer.subscribe([topic])
+        consumer.subscribe(topic)
 
         for message in consumer:
             print (message)
@@ -35,8 +46,8 @@ def main():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
-        print("Usage: kafkaConsumer.py <topic>", file=sys.stderr)
+    if len(sys.argv) != 5:
+        print("Usage: kafkaConsumer.py <topic descriptor> <topic list> <broker server> <broker port list> <group>", file=sys.stderr)
         exit(-1)
 
     logging.basicConfig(
